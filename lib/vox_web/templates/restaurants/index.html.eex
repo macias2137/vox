@@ -1,0 +1,10 @@
+<h1>Restaurants</h1>
+
+<%= for restaurant <- @restaurants do %>
+  <h3><%= restaurant.name %></h3>
+    <p style="color:red;">
+    <%= restaurant.vote_count %>
+     </p>
+  <% end %>
+
+  <hr>

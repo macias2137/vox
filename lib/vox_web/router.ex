@@ -18,6 +18,7 @@ defmodule VoxWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/restaurants", RestaurantsController, :index
   end
 
   # Other scopes may use custom stacks.

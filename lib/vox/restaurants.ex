@@ -15,11 +15,17 @@ defmodule Vox.Restaurants do
   end
 
   def add_vote_to_restaurant(restaurant) when is_struct(restaurant) do
-    change(restaurant, vote_count: restaurant.vote_count + 1)
+    restaurant = change(restaurant, vote_count: restaurant.vote_count + 1)
     Repo.update(restaurant)
   end
 
   def reset_all_votes do
    Repo.update_all(Restaurant, set: [vote_count: 0])
+  end
+
+  def add_new_restaurant(params) do
+  %Restaurant{}
+  |> Restaurant.changeset(params)
+  |> Repo.insert
   end
 end
