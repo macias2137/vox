@@ -8,16 +8,18 @@
         <p style="color:red;">
           <%= restaurant.vote_count %>
         </p>
-        <%# <%= form_for @changeset, Routes.restaurants_path(@conn, :update), fn f -> %>
-        <%# <label>Vote</label> %>
-        <%# <%= submit "+" %>
-        <%# <% end %>
         <%= button("Vote", to: Routes.restaurants_path(@conn, :update, restaurant), method: :patch) %>
       </div>
     <% end %>
   </div>
   <div class="restaurants__voting-section">
-  <%= button("Delete", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
+    <%= button("Reset all votes", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
+    <%= form_for @conn, Routes.restaurants_path(@conn, :new), fn f -> %>
+      <label>
+        Add new restaurant: <%= text_input f, :name %>
+      </label>
+      <%= submit "Submit" %>
+    <% end %>
   <div>
   <hr>
 </section>

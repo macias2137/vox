@@ -19,6 +19,7 @@ defmodule VoxWeb.Router do
 
     get "/", PageController, :index
     get "/restaurants", RestaurantsController, :index
+    post "/restaurants", RestaurantsController, :new
     patch "/restaurants/:id/vote_count", RestaurantsController, :update
     patch "/restaurants", RestaurantsController, :reset
   end

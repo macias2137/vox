@@ -23,7 +23,7 @@ defmodule Vox.Restaurants do
    Repo.update_all(Restaurant, set: [vote_count: 0])
   end
 
-  def add_new_restaurant(params) do
+  def add_new_restaurant(params \\ %{}) do
   %Restaurant{}
   |> Restaurant.changeset(params)
   |> Repo.insert

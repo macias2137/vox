@@ -21,7 +21,8 @@ defmodule VoxWeb.RestaurantsController do
     redirect(conn, to: Routes.restaurants_path(conn, :index))
   end
 
-  def create(conn, params) do
-
+  def new(conn, %{"name" => name}) do
+    Restaurants.add_new_restaurant(%{name: name})
+    redirect(conn, to: Routes.restaurants_path(conn, :index))
   end
 end
