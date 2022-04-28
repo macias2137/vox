@@ -1,10 +1,23 @@
-<h1>Restaurants</h1>
 
-<%= for restaurant <- @restaurants do %>
-  <h3><%= restaurant.name %></h3>
-    <p style="color:red;">
-    <%= restaurant.vote_count %>
-     </p>
-  <% end %>
-
+<section class="restaurants">
+  <div class="restaurants-list">
+    <h1>Restaurants</h1>
+    <%= for restaurant <- @restaurants do %>
+      <div class="restaurants__restaurant-container">
+        <h3><%= restaurant.name %></h3>
+        <p style="color:red;">
+          <%= restaurant.vote_count %>
+        </p>
+        <%# <%= form_for @changeset, Routes.restaurants_path(@conn, :update), fn f -> %>
+        <%# <label>Vote</label> %>
+        <%# <%= submit "+" %>
+        <%# <% end %>
+        <%= button("Vote", to: Routes.restaurants_path(@conn, :update, restaurant), method: :patch) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="restaurants__voting-section">
+  <%= button("Delete", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
+  <div>
   <hr>
+</section>

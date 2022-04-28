@@ -19,6 +19,8 @@ defmodule VoxWeb.Router do
 
     get "/", PageController, :index
     get "/restaurants", RestaurantsController, :index
+    patch "/restaurants/:id/vote_count", RestaurantsController, :update
+    patch "/restaurants", RestaurantsController, :reset
   end
 
   # Other scopes may use custom stacks.
@@ -27,7 +29,7 @@ defmodule VoxWeb.Router do
   # end
 
   # Enables LiveDashboard only for development
-  #
+
   # If you want to use the LiveDashboard in production, you should put
   # it behind authentication and allow only admins to access it.
   # If your application does not have an admins-only section yet,
