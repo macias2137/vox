@@ -1,10 +1,12 @@
 
 <section class="restaurants">
   <div class="restaurants-list">
-    <h1>Restaurants</h1>
+    <h1>Vote for lunch !</h1>
     <%= for restaurant <- @restaurants do %>
       <div class="restaurants__restaurant-container">
+      <span class="restaurants__restaurant-name">
         <h3><%= restaurant.name %></h3>
+        </span>
         <p style="color:red;">
           <%= restaurant.vote_count %>
         </p>
@@ -12,14 +14,14 @@
       </div>
     <% end %>
   </div>
-  <div class="restaurants__voting-section">
-    <%= button("Reset all votes", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
+  <div class="restaurants__vote-section">
     <%= form_for @conn, Routes.restaurants_path(@conn, :new), fn f -> %>
       <label>
         Add new restaurant: <%= text_input f, :name %>
       </label>
       <%= submit "Submit" %>
     <% end %>
+    <%= button("Reset all votes", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
   <div>
   <hr>
 </section>
