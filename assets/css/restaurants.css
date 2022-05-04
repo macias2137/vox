@@ -4,6 +4,12 @@
   width: 100%;
 }
 
+.restaurants__restaurant-list {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
 .restaurants__restaurant-container {
   display: flex;
   justify-content: space-between;
@@ -13,18 +19,16 @@
   margin: 0.5rem 0;
 }
 
+.restaurants__restaurant-container p {
+  color: red;
+}
+
 .restaurants__restaurant-container p,
 h3 {
   margin: 0;
 }
 
 .restaurants__restaurant-name {
-  width: 50%;
-}
-
-.restaurants-list {
-  display: flex;
-  flex-direction: column;
   width: 50%;
 }
 
