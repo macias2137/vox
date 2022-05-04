@@ -4,28 +4,34 @@
   width: 100%;
 }
 
+.restaurants__restaurant-list {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
 .restaurants__restaurant-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 6rem;
-  border: 1px solid red;
-  border-radius: 20px;
   padding: 0.5rem;
   margin: 0.5rem 0;
 }
 
-.restaurants__restaurant-container h3,
-p {
+.restaurants__restaurant-container p {
+  color: red;
+}
+
+.restaurants__restaurant-container p,
+h3 {
   margin: 0;
 }
 
-.restaurant-list {
-  display: flex;
-  flex-direction: column;
-  /* width: 70%; */
+.restaurants__restaurant-name {
+  width: 50%;
 }
 
-.restaurants__voting-section {
-  /* width: 30%; */
+.restaurants__vote-section {
+  width: 30%;
 }
