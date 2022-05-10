@@ -2,7 +2,10 @@
   <li><%= link "Register", to: "/restaurants" %></li>
   <%= if @current_user do %>
   <li><%= @current_user.username %></li>
-  <li><%= link "Log out", to: "/login" %></li>
+  <li>
+    <%= link "Log out", to: Routes.session_path(@conn, :delete, @current_user),
+    method: "delete" %>
+  </li>
   <% else %>
   <li><%= link "Log in", to: "/login" %></li>
   <% end %>

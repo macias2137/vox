@@ -4,6 +4,7 @@ defmodule VoxWeb.SessionController do
   alias Vox.UserManager
   alias Vox.UserManager.User
   alias Vox.UserManager.Guardian
+  # use Plug.Conn
 
   def new(conn, _) do
     changeset = UserManager.change_user(%User{})
@@ -23,14 +24,19 @@ defmodule VoxWeb.SessionController do
   def logout(conn, _) do
     conn
     |> Guardian.Plug.sign_out()
-    |> render(conn, :login, current_user: nil)
+    # |> assign(:current_user, %{})
+    # |> render(conn, :logout, current_user: %{})
+    |> redirect(to: "/logout")
   end
 
   defp login_reply({:ok, user}, conn) do
     conn
     |> put_flash(:info, "Welcome back!")
     |> Guardian.Plug.sign_in(user)
-    |> render(conn, :restaurants, current_user: user)
+    |> assign(:current_user, user)
+    # |> Plug.Conn.assign(:current_user, user)
+    # |> render(conn, :restaurants, current_user: user)
+    |> redirect(to: "/restaurants")
   end
 
   defp login_reply({:error, reason}, conn) do
