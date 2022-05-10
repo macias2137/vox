@@ -12,7 +12,7 @@ defmodule VoxWeb.SessionController do
     if maybe_user do
       redirect(conn, to: "/protected") #could it redirect to login page ?
     else
-      render(conn, "new.html", changeset: changeset, action: Routes.session_path(conn, :login))
+      render(conn, "new.html", changeset: changeset, current_user: maybe_user, action: Routes.session_path(conn, :login))
     end
   end
 
@@ -24,9 +24,7 @@ defmodule VoxWeb.SessionController do
   def logout(conn, _) do
     conn
     |> Guardian.Plug.sign_out()
-    # |> assign(:current_user, %{})
-    # |> render(conn, :logout, current_user: %{})
-    |> redirect(to: "/logout")
+    |> redirect(to: "/login")
   end
 
   defp login_reply({:ok, user}, conn) do
@@ -34,8 +32,6 @@ defmodule VoxWeb.SessionController do
     |> put_flash(:info, "Welcome back!")
     |> Guardian.Plug.sign_in(user)
     |> assign(:current_user, user)
-    # |> Plug.Conn.assign(:current_user, user)
-    # |> render(conn, :restaurants, current_user: user)
     |> redirect(to: "/restaurants")
   end
 

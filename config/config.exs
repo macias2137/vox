@@ -50,3 +50,7 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
+
+config :vox, Vox.UserManager.Guardian,
+issuer: "vox",
+secret_key: "52uQN42adaKpANjuPiB0Z3v4E1RA3AZxVK2/Dbr2lEFxPj4vkUBWll6zapdISjsQ"

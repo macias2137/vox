@@ -36,7 +36,7 @@ defmodule VoxWeb.Router do
 
     get "/login", SessionController, :new
     post "/login", SessionController, :login
-    get "/logout", SessionController, :logout
+    delete "/logout/:id", SessionController, :logout
   end
 
   scope "/", VoxWeb do

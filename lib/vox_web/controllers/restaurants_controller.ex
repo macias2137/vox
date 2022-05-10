@@ -1,13 +1,15 @@
 defmodule VoxWeb.RestaurantsController do
+
   use VoxWeb, :controller
 
   alias Vox.Restaurants
   alias Vox.Restaurants.Restaurant
 
   def index(conn, _params) do
+    current_user = Guardian.Plug.current_resource(conn)
     restaurants = Restaurants.list_restaurants()
     changeset = Restaurant.changeset(%Restaurant{}, %{})
-    render(conn, "index.html", restaurants: restaurants, changeset: changeset)
+    render(conn, "index.html", current_user: current_user, restaurants: restaurants, changeset: changeset)
   end
 
   def update(conn, %{"id" => id}) do
