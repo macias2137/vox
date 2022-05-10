@@ -19,6 +19,8 @@ defmodule VoxWeb.RestaurantsController do
   end
 
   def reset(conn, _params) do
+    # if conn.assigns.current_user.role == "admin", do:
+    # if conn.assigns.current_user.role == "admin", do:
     Restaurants.reset_all_votes()
     redirect(conn, to: Routes.restaurants_path(conn, :index))
   end

@@ -4,6 +4,7 @@ defmodule Vox.Restaurants do
   alias Vox.Repo
   import Ecto.Changeset
   import Ecto.Query
+  # alias Plug.Conn
 
   def get_restaurant_by_id(id) do
     Repo.get(Restaurant, id)
@@ -20,7 +21,7 @@ defmodule Vox.Restaurants do
   end
 
   def reset_all_votes do
-   Repo.update_all(Restaurant, set: [vote_count: 0])
+    Repo.update_all(Restaurant, set: [vote_count: 0])
   end
 
   def add_new_restaurant(params \\ %{}) do

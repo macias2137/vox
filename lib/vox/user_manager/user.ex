@@ -6,6 +6,7 @@ defmodule Vox.UserManager.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :username, :string
+    field :role, :string, default: "user"
 
     timestamps()
   end
@@ -21,8 +22,9 @@ defmodule Vox.UserManager.User do
   def registration_changeset(user, params) do
     user
     |> changeset(params)
-    |> cast(params, [:password])
-    |> validate_required([:password])
+    |> cast(params, [:password, :role])
+    |> validate_required([:password, :role])
+    |> validate_inclusion(:role, ["user", "admin"])
     |> validate_length(:password, min: 6, max: 100)
     |> put_password_hash()
   end

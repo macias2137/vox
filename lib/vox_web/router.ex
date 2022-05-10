@@ -3,6 +3,8 @@ defmodule VoxWeb.Router do
 
   # import VoxWeb.UserAuth
 
+
+
   pipeline :auth do
     plug Vox.UserManager.Pipeline
   end
