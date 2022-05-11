@@ -4,6 +4,8 @@ defmodule VoxWeb.RestaurantsController do
 
   alias Vox.Restaurants
   alias Vox.Restaurants.Restaurant
+  alias Vox.Votes
+  alias Vox.Votes.Vote
 
   def index(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
@@ -13,8 +15,10 @@ defmodule VoxWeb.RestaurantsController do
   end
 
   def update(conn, %{"id" => id}) do
+    current_user = Guardian.Plug.current_resource(conn)
     restaurant = Restaurants.get_restaurant_by_id(id)
-    Restaurants.add_vote_to_restaurant(restaurant)
+    # Restaurants.add_vote_to_restaurant(restaurant)
+    Votes.create_vote(%{user_id: current_user.id, restaurant_id: restaurant.id})
     redirect(conn, to: Routes.restaurants_path(conn, :index))
   end
 
