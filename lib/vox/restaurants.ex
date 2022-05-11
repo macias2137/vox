@@ -4,7 +4,6 @@ defmodule Vox.Restaurants do
   alias Vox.Repo
   import Ecto.Changeset
   import Ecto.Query
-  # alias Plug.Conn
 
   def get_restaurant_by_id(id) do
     Repo.get(Restaurant, id)

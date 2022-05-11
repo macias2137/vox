@@ -19,14 +19,18 @@ defmodule VoxWeb.RestaurantsController do
   end
 
   def reset(conn, _params) do
-    # if conn.assigns.current_user.role == "admin", do:
-    # if conn.assigns.current_user.role == "admin", do:
+    current_user = Guardian.Plug.current_resource(conn)
+    if current_user.role == "admin" do
     Restaurants.reset_all_votes()
+    end
     redirect(conn, to: Routes.restaurants_path(conn, :index))
   end
 
   def new(conn, %{"name" => name}) do
+    current_user = Guardian.Plug.current_resource(conn)
+    if current_user.role == "admin" do
     Restaurants.add_new_restaurant(%{name: name})
+    end
     redirect(conn, to: Routes.restaurants_path(conn, :index))
   end
 end

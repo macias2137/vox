@@ -22,6 +22,10 @@ defmodule Vox.Votes do
     raise "TODO"
   end
 
+  def delete_all_votes do
+    Repo.delete_all(Vote)
+  end
+
   def change_vote(%Vote{} = vote, _attrs \\ %{}) do
     raise "TODO"
   end
