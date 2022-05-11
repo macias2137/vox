@@ -1,5 +1,6 @@
 defmodule Vox.UserManager.ErrorHandler do
   import Plug.Conn
+  import Phoenix.Controller
 
   @behaviour Guardian.Plug.ErrorHandler
 
@@ -7,7 +8,7 @@ defmodule Vox.UserManager.ErrorHandler do
   def auth_error(conn, {type, _reason}, _opts) do
     body = to_string(type)
     conn
-    |> put_resp_content_type("text/plain")
-    |> send_resp(401, body)
+    |> redirect(to: "/login")
+    |> halt()
   end
 end

@@ -28,11 +28,14 @@ defmodule VoxWeb.Router do
   scope "/", VoxWeb do
     pipe_through [:browser, :auth]
 
-    get "/", PageController, :index
-    get "/restaurants", RestaurantsController, :index
-    post "/restaurants", RestaurantsController, :new
-    patch "/restaurants/:id/vote_count", RestaurantsController, :update
-    patch "/restaurants", RestaurantsController, :reset
+    scope "" do
+      pipe_through [:ensure_auth]
+      get "/", PageController, :index
+      get "/restaurants", RestaurantsController, :index
+      post "/restaurants", RestaurantsController, :new
+      patch "/restaurants/:id/vote_count", RestaurantsController, :update
+      patch "/restaurants", RestaurantsController, :reset
+    end
 
     get "/login", SessionController, :new
     post "/login", SessionController, :login
