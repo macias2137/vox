@@ -10,7 +10,7 @@ defmodule Vox.UserManager do
     %User{}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
-  endalias
+  end
 
   def update_user(%User{} = user, attrs) do
     user

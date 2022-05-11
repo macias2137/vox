@@ -3,10 +3,9 @@ defmodule VoxWeb.Router do
 
   # import VoxWeb.UserAuth
 
-
-
   pipeline :auth do
     plug Vox.UserManager.Pipeline
+    plug Vox.UserManager.Auth
   end
 
   pipeline :ensure_auth do
@@ -20,7 +19,6 @@ defmodule VoxWeb.Router do
     plug :put_root_layout, {VoxWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    # plug :fetch_current_user
   end
 
   pipeline :api do
