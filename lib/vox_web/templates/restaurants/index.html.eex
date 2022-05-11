@@ -1,7 +1,7 @@
 
 <section class="restaurants">
   <div class="restaurants__restaurant-list">
-    <h1>Vote for lunch !</h1>
+    <h1>Where should we order lunch ?</h1>
     <%= for restaurant <- @restaurants do %>
       <div class="restaurants__restaurant-container">
       <span class="restaurants__restaurant-name">
