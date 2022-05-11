@@ -14,6 +14,8 @@
       </div>
     <% end %>
   </div>
+      <%= if @current_user.role == "admin" do %>
+
   <div class="restaurants__vote-section">
     <%= form_for @conn, Routes.restaurants_path(@conn, :new), fn f -> %>
       <label>
@@ -21,7 +23,8 @@
       </label>
       <%= submit "Submit" %>
     <% end %>
-    <%= button("Reset all votes", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
+      <%= button("Reset all votes", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
   <div>
+  <% end %>
   <hr>
 </section>

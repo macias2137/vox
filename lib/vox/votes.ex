@@ -1,3 +1,4 @@
+defmodule Vox.Votes do
   alias Vox.Votes.Vote
   alias Vox.Repo
 
