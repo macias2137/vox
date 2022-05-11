@@ -10,8 +10,9 @@ defmodule VoxWeb.RestaurantsController do
   def index(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
     restaurants = Restaurants.list_restaurants()
+    votes = Votes.get_vote_count_for_each_restaurant()
     changeset = Restaurant.changeset(%Restaurant{}, %{})
-    render(conn, "index.html", current_user: current_user, restaurants: restaurants, changeset: changeset)
+    render(conn, "index.html", current_user: current_user, restaurants: restaurants, changeset: changeset, votes: votes)
   end
 
   def update(conn, %{"id" => id}) do
@@ -25,7 +26,8 @@ defmodule VoxWeb.RestaurantsController do
   def reset(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
     if current_user.role == "admin" do
-    Restaurants.reset_all_votes()
+    # Restaurants.reset_all_votes()
+    Votes.delete_all_votes()
     end
     redirect(conn, to: Routes.restaurants_path(conn, :index))
   end
