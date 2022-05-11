@@ -4,7 +4,6 @@ defmodule VoxWeb.SessionController do
   alias Vox.UserManager
   alias Vox.UserManager.User
   alias Vox.UserManager.Guardian
-  # use Plug.Conn
 
   def new(conn, _) do
     changeset = UserManager.change_user(%User{})
