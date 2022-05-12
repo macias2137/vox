@@ -4,31 +4,23 @@
     <h1>Where should we order lunch ?</h1>
     <%= for restaurant <- @restaurants do %>
       <div class="restaurants__restaurant-container">
-      <span class="restaurants__restaurant-name">
-        <h3><%= restaurant.name %></h3>
-      </span>
-      <%# <%= for v <- @votes_by_restaurant, v.restaurant_id == restaurant.id do %>
-        <%# <p><%= v.vote_count</p> %>
-      <%# <% end %>
-      <%# <%= if restaurant.id in Enum.map(@votes_by_restaurant, &Map.get(&1, :restaurant_id)) do %>
-      <%# <p><%= Enum.find_value(@votes_by_restaurant, fn v = %{restaurant_id: id} -> if id == restaurant.id, do: v.vote_count end) %></p> %>
-      <%# <% else %>
-      <%# <p><%= 0</p>  %>
-      <%# <% end %>
-      <p><%= @votes_by_restaurant[restaurant.id] || 0 %></p>
+        <span class="restaurants__restaurant-name">
+          <h3><%= restaurant.name %></h3>
+        </span>
+        <p><%= @votes_by_restaurant[restaurant.id] || 0 %></p>
         <%= button("Vote", to: Routes.restaurants_path(@conn, :update, restaurant), method: :patch) %>
       </div>
     <% end %>
   </div>
   <%= if @current_user.role == "admin" do %>
     <div class="restaurants__vote-section">
-        <%= form_for @conn, Routes.restaurants_path(@conn, :new), fn f -> %>
-          <label>
-            Add new restaurant: <%= text_input f, :name %>
-          </label>
-          <%= submit "Submit" %>
-        <% end %>
-        <%= button("Reset all votes", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
+      <%= form_for @conn, Routes.restaurants_path(@conn, :new), fn f -> %>
+        <label>
+          Add new restaurant: <%= text_input f, :name %>
+        </label>
+        <%= submit "Submit" %>
+      <% end %>
+      <%= button("Reset all votes", to: Routes.restaurants_path(@conn, :reset), method: :patch) %>
     <div>
   <% end %>
   <hr>
