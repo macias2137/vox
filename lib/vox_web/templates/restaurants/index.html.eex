@@ -10,11 +10,12 @@
       <%# <%= for v <- @votes_by_restaurant, v.restaurant_id == restaurant.id do %>
         <%# <p><%= v.vote_count</p> %>
       <%# <% end %>
-      <%= if restaurant.id in Enum.map(@votes_by_restaurant, &Map.get(&1, :restaurant_id)) do %>
-      <p><%= Enum.find_value(@votes_by_restaurant, fn v = %{restaurant_id: id} -> if id == restaurant.id, do: v.vote_count end) %></p>
-      <% else %>
-      <p><%= 0 %></p>
-      <% end %>
+      <%# <%= if restaurant.id in Enum.map(@votes_by_restaurant, &Map.get(&1, :restaurant_id)) do %>
+      <%# <p><%= Enum.find_value(@votes_by_restaurant, fn v = %{restaurant_id: id} -> if id == restaurant.id, do: v.vote_count end) %></p> %>
+      <%# <% else %>
+      <%# <p><%= 0</p>  %>
+      <%# <% end %>
+      <p><%= @votes_by_restaurant[restaurant.id] || 0 %></p>
         <%= button("Vote", to: Routes.restaurants_path(@conn, :update, restaurant), method: :patch) %>
       </div>
     <% end %>

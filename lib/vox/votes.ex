@@ -1,7 +1,7 @@
 defmodule Vox.Votes do
   alias Vox.Votes.Vote
   alias Vox.Repo
-  import Ecto.Query, only: [from: 2]
+  import Ecto.Query
 
   def list_votes do
     Repo.all(Vote)
@@ -13,13 +13,11 @@ defmodule Vox.Votes do
   end
 
   def get_vote_count_for_restaurants do
-    query = from v in Vote,
-    group_by: [v.restaurant_id],
-    select: {v.restaurant_id, count(v.id)}
-    votes_by_restaurant = Repo.all(query)
-    for {id, count} <- votes_by_restaurant do
-      %{restaurant_id: id, vote_count: count}
-    end
+    Vote
+    |> group_by([v], v.restaurant_id)
+    |> select([v], {v.restaurant_id, count(v.id)})
+    |> Repo.all()
+    |> Map.new()
   end
 
   def get_voter_ids do
