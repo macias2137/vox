@@ -5,7 +5,6 @@ defmodule VoxWeb.RestaurantsController do
   alias Vox.Restaurants
   alias Vox.Restaurants.Restaurant
   alias Vox.Votes
-  alias Vox.Votes.Vote
 
   def index(conn, _params) do
     restaurants = Restaurants.list_restaurants()
