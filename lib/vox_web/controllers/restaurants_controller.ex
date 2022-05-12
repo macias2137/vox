@@ -15,14 +15,13 @@ defmodule VoxWeb.RestaurantsController do
 
   def update(conn, %{"id" => id}) do
     restaurant = Restaurants.get_restaurant_by_id(id)
-    voter_ids = Votes.get_voter_ids()
-    if conn.assigns.current_user.id not in voter_ids do
-      Votes.create_vote(%{user_id: conn.assigns.current_user.id, restaurant_id: restaurant.id})
+    user_id = conn.assigns.current_user.id
+    unless Votes.user_voted?(user_id) do
+      Votes.create_vote(%{user_id: user_id, restaurant_id: restaurant.id})
     end
     conn
     |> put_flash(:info, "You have already voted !")
     |> redirect(to: Routes.restaurants_path(conn, :index))
-
   end
 
   def reset(conn, _params) do

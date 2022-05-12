@@ -7,9 +7,10 @@ defmodule Vox.Votes do
     Repo.all(Vote)
   end
 
-  def get_vote_count_by_restaurant_id(restaurant_id) do
-    votes = Repo.all(Vote, restaurant_id: restaurant_id)
-    Enum.count(votes)
+  def user_voted?(id) do
+   Vote
+   |> where([v], v.user_id == ^id)
+   |> Repo.exists?()
   end
 
   def get_vote_count_for_restaurants do
@@ -18,10 +19,6 @@ defmodule Vox.Votes do
     |> select([v], {v.restaurant_id, count(v.id)})
     |> Repo.all()
     |> Map.new()
-  end
-
-  def get_voter_ids do
-    Repo.all(from v in Vote, select: v.user_id, order_by: [asc: v.user_id])
   end
 
   def create_vote(attrs \\ %{}) do

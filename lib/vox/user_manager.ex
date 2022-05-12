@@ -28,16 +28,14 @@ defmodule Vox.UserManager do
 
   def authenticate_user(username, password) do
     query = from u in User, where: u.username == ^username
-    case Repo.one(query) do
+    with user when not is_nil(user) <- Repo.one(query),
+      true <- Argon2.verify_pass(password, user.password_hash) do
+        {:ok, user}
+    else
       nil -> Argon2.no_user_verify()
       {:error, :invalid_credentials}
 
-      user ->
-        if Argon2.verify_pass(password, user.password_hash) do
-          {:ok, user}
-        else
-          {:error, :invalid_credentials}
-        end
+      false -> {:error, :invalid_credentials}
     end
   end
 end
