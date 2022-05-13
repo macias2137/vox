@@ -1,6 +1,17 @@
 defmodule VoxWeb.Router do
   use VoxWeb, :router
 
+  # import VoxWeb.UserAuth
+
+  pipeline :auth do
+    plug Vox.UserManager.Pipeline
+    plug Vox.UserManager.Auth
+  end
+
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -15,13 +26,26 @@ defmodule VoxWeb.Router do
   end
 
   scope "/", VoxWeb do
-    pipe_through :browser
+    pipe_through [:browser, :auth]
 
-    get "/", PageController, :index
-    get "/restaurants", RestaurantsController, :index
-    post "/restaurants", RestaurantsController, :new
-    patch "/restaurants/:id/vote_count", RestaurantsController, :update
-    patch "/restaurants", RestaurantsController, :reset
+    scope "" do
+      pipe_through [:ensure_auth]
+      get "/", PageController, :index
+      get "/restaurants", RestaurantsController, :index
+      post "/restaurants", RestaurantsController, :new
+      patch "/restaurants/:id/vote_count", RestaurantsController, :update
+      patch "/restaurants", RestaurantsController, :reset
+    end
+
+    get "/login", SessionController, :new
+    post "/login", SessionController, :login
+    delete "/logout/:id", SessionController, :logout
+  end
+
+  scope "/", VoxWeb do
+    pipe_through [:browser, :auth, :ensure_auth]
+
+    get "/protected", PageController, :protected
   end
 
   # Other scopes may use custom stacks.
