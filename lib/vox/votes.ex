@@ -21,10 +21,12 @@ defmodule Vox.Votes do
     |> Map.new()
   end
 
-  def create_vote(attrs \\ %{}) do
+  def create_vote(attrs = %{user_id: user_id} \\ %{}) do
+    unless user_voted?(user_id) do
     %Vote{}
     |> Vote.changeset(attrs)
     |> Repo.insert()
+    end
   end
 
   def delete_all_votes do
